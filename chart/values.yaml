@@ -1,0 +1,21 @@
+global:
+  namespace: cpaas-system
+  registry:
+    address: docker.io # replace with your registry address
+  replicas: 1
+  images:
+    productDocs:
+      repository: alauda/product-docs # replace with your product docs plugin repository name
+      tag: latest # replace with your product docs plugin tag
+  ingress:
+    annotations: {}
+resourceSuffix: ""
+productDocs:
+  ingress:
+    annotations:
+      alb.ingress.cpaas.io/rewrite-response: |
+        {"headers":{"Content-Security-Policy": "", "X-Frame-Options":"SAMEORIGIN","X-Content-Type-Options":"nosniff","X-XSS-Protection":"1","Cache-Control":"no-cache","Pragma":"no-cache"}}
+      nginx.ingress.kubernetes.io/enable-cors: 'false'
+    ingressClassName: ""
+    host: ""
+    tlsSecret: ""
